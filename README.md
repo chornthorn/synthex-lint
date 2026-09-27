@@ -9,6 +9,13 @@ Dart and Flutter tooling.
 | [`packages/synthex_lint`](packages/synthex_lint) | Analyzer plugin: schema-driven architecture rules and other lints.        |
 | [`examples/consumer`](examples/consumer)         | Example package that enables the plugin and demonstrates its diagnostics. |
 
+## Documentation
+
+- [Complete documentation](docs/README.md) — configuration reference, rule
+  guide, codebase architecture, and development.
+- [Package README](packages/synthex_lint/README.md) — the pub.dev-facing
+  reference.
+
 ## Quickstart
 
 Try the plugin end to end:

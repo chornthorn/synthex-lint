@@ -3,48 +3,76 @@ import '../../../common/rule_severity.dart';
 import 'encapsulation_config.dart';
 
 /// The kind of class member a violation points at.
-enum MemberKind { field, getter, setter }
+enum MemberKind {
+  /// An instance field.
+  field,
+
+  /// A getter.
+  getter,
+
+  /// A setter.
+  setter,
+}
 
 /// A reference to the class member a violation points at.
 class MemberRef {
+  /// Creates a reference to the [kind] member named [name].
   const MemberRef(this.kind, this.name);
 
+  /// The kind of member.
   final MemberKind kind;
+
+  /// The simple member name.
   final String name;
 }
 
 /// A field of the analyzed class.
 class FieldFacts {
+  /// Creates facts about the field named [name].
   const FieldFacts({
     required this.name,
     this.isStatic = false,
     this.isFinal = false,
   });
 
+  /// The simple field name.
   final String name;
+
+  /// Whether the field is static.
   final bool isStatic;
+
+  /// Whether the field is final.
   final bool isFinal;
 
+  /// Whether the field name starts with an underscore.
   bool get isPrivate => name.startsWith('_');
 }
 
 /// An explicit getter or setter of the analyzed class.
 class AccessorFacts {
+  /// Creates facts about the accessor named [name].
   const AccessorFacts({
     required this.name,
     required this.isGetter,
     this.isStatic = false,
   });
 
+  /// The simple accessor name.
   final String name;
+
+  /// Whether the accessor is a getter.
   final bool isGetter;
+
+  /// Whether the accessor is static.
   final bool isStatic;
 
+  /// Whether the accessor name starts with an underscore.
   bool get isPrivate => name.startsWith('_');
 }
 
 /// The facts about an analyzed class that encapsulation checks depend on.
 class ClassFacts {
+  /// Creates the facts about a class declaration.
   const ClassFacts({
     required this.name,
     this.supertypeNames = const [],
@@ -63,12 +91,16 @@ class ClassFacts {
   /// Simple names of the annotations on the class.
   final List<String> annotations;
 
+  /// The fields declared by the class.
   final List<FieldFacts> fields;
+
+  /// The explicit getters and setters declared by the class.
   final List<AccessorFacts> accessors;
 }
 
 /// A single encapsulation violation.
 class EncapsulationViolation {
+  /// Creates a violation of [requirement] on [member].
   const EncapsulationViolation({
     required this.requirement,
     required this.member,
@@ -96,9 +128,13 @@ class EncapsulationViolation {
 ///
 /// Pure: no analyzer, no file system, no state.
 class EncapsulationEvaluator {
+  /// Creates an evaluator for [config] that matches paths with [matcher].
   const EncapsulationEvaluator({required this.config, required this.matcher});
 
+  /// The config to evaluate against.
   final EncapsulationConfig config;
+
+  /// The matcher that `files` patterns are matched with.
   final PathMatcher matcher;
 
   /// All violations for the class described by [facts], declared in [path].

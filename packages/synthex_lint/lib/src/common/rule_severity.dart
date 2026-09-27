@@ -3,8 +3,13 @@
 /// Configured in the rule's schema, so each rule can be as strict as the
 /// project needs.
 enum RuleSeverity {
+  /// An informational violation.
   info,
+
+  /// A warning-level violation.
   warning,
+
+  /// An error-level violation.
   error;
 
   /// Parses a schema value, returning `null` for unknown values.

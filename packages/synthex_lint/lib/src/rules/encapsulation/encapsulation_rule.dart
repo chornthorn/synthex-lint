@@ -58,6 +58,7 @@ class EncapsulationRule extends MultiAnalysisRule {
 
   final RuleProvider<EncapsulationResolution> _provider;
 
+  /// Creates the rule with [provider], defaulting to `EncapsulationProvider`.
   EncapsulationRule({RuleProvider<EncapsulationResolution>? provider})
     : _provider = provider ?? EncapsulationProvider(),
       super(

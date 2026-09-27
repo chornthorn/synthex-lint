@@ -4,6 +4,7 @@ import 'placement_config.dart';
 
 /// The facts about a class declaration that placement checks depend on.
 class ClassFacts {
+  /// Creates the facts about the class named [name].
   const ClassFacts({required this.name, this.supertypeNames = const []});
 
   /// The class name.
@@ -16,6 +17,7 @@ class ClassFacts {
 
 /// A single placement violation.
 class PlacementViolation {
+  /// Creates a violation with its diagnostic [message] and [severity].
   const PlacementViolation({required this.message, required this.severity});
 
   /// A human-readable description, used as the diagnostic message.
@@ -32,9 +34,13 @@ class PlacementViolation {
 ///
 /// Pure: no analyzer, no file system, no state.
 class PlacementEvaluator {
+  /// Creates an evaluator for [config] that matches paths with [matcher].
   const PlacementEvaluator({required this.config, required this.matcher});
 
+  /// The config to evaluate against.
   final PlacementConfig config;
+
+  /// The matcher that `files` patterns are matched with.
   final PathMatcher matcher;
 
   /// All violations for the class described by [facts], declared in [path].

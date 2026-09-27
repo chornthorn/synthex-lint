@@ -6,12 +6,14 @@ const int architectureSchemaVersion = 1;
 
 /// A declarative description of the architectural layers of a package.
 class ArchitectureSchema {
+  /// Creates a schema of [layers] at [version] with schema-wide [severity].
   const ArchitectureSchema({
     required this.version,
     this.severity = RuleSeverity.info,
     required this.layers,
   });
 
+  /// The schema format version, currently [architectureSchemaVersion].
   final int version;
 
   /// Schema-wide default severity for violations.
@@ -24,6 +26,8 @@ class ArchitectureSchema {
 
 /// A forbidden URI pattern with an optional per-pattern severity.
 class ForbiddenImport {
+  /// Creates a forbidden import matching [pattern] with an optional
+  /// [severity].
   const ForbiddenImport(this.pattern, {this.severity});
 
   /// A URI glob, matched against the import URI as written, for example
@@ -36,6 +40,7 @@ class ForbiddenImport {
 
 /// A single architecture layer.
 class ArchitectureLayer {
+  /// Creates a layer named [name] whose files match [files].
   const ArchitectureLayer({
     required this.name,
     required this.files,
@@ -88,6 +93,7 @@ class ArchitectureLayer {
 
 /// The outcome of parsing a schema document.
 class ArchitectureSchemaParseResult {
+  /// Creates a result holding [schema], or the validation [errors].
   const ArchitectureSchemaParseResult({this.schema, this.errors = const []});
 
   /// The parsed schema, or `null` when [errors] is not empty.
@@ -96,6 +102,7 @@ class ArchitectureSchemaParseResult {
   /// Human-readable validation errors.
   final List<String> errors;
 
+  /// Whether the document produced a schema.
   bool get isValid => schema != null;
 }
 

@@ -14,6 +14,7 @@ import '../domain/encapsulation_config.dart';
 /// injects a resolution without a file system and [EncapsulationProvider] is
 /// the production implementation.
 class EncapsulationResolution extends RuleResolution {
+  /// Creates the resolution for a package that configures the rule.
   const EncapsulationResolution({
     this.config,
     required super.matcher,
@@ -21,6 +22,7 @@ class EncapsulationResolution extends RuleResolution {
     super.errors,
   });
 
+  /// The parsed config, or `null` when the document could not be parsed.
   final EncapsulationConfig? config;
 }
 
@@ -30,6 +32,7 @@ class EncapsulationResolution extends RuleResolution {
 /// (`synthex_lint.yaml`, `.yml`, or `.json`), or of the `synthex_lint` key of
 /// `pubspec.yaml`.
 class EncapsulationProvider implements RuleProvider<EncapsulationResolution> {
+  /// Creates the provider with [matcher], defaulting to a `GlobPathMatcher`.
   EncapsulationProvider({PathMatcher? matcher})
     : _matcher = matcher ?? GlobPathMatcher(),
       _config = PackageConfigSource(ruleKey: encapsulationRuleName);

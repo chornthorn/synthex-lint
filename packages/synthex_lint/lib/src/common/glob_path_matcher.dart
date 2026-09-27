@@ -12,6 +12,7 @@ import 'path_matcher.dart';
 /// against every layer pattern, so re-parsing per match dominates the rule's
 /// CPU time.
 class GlobPathMatcher implements PathMatcher {
+  /// Creates a matcher with an empty compiled-pattern cache.
   GlobPathMatcher();
 
   final Map<String, Glob> _globCache = {};

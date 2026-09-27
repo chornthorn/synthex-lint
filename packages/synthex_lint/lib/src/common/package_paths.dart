@@ -33,6 +33,7 @@ sealed class ImportTarget {
 
 /// The import points at a file of the analyzed package.
 final class InternalImport extends ImportTarget {
+  /// Creates an internal import of [uri] at package-relative [path].
   const InternalImport(super.uri, this.path);
 
   /// Package-relative POSIX path, for example `lib/src/domain/entity.dart`.
@@ -42,6 +43,7 @@ final class InternalImport extends ImportTarget {
 /// The import points outside the analyzed package (`dart:`, other packages,
 /// or a relative URI that escapes the package root).
 final class ExternalImport extends ImportTarget {
+  /// Creates an external import of [uri].
   const ExternalImport(super.uri);
 }
 

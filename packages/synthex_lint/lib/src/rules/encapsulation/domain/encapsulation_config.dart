@@ -43,34 +43,43 @@ sealed class ClassSelector {
 /// Matches classes that have [name] among their supertypes, interfaces, or
 /// mixins — direct or indirect. Needs resolved elements.
 final class SupertypeSelector extends ClassSelector {
+  /// Creates a selector matching classes with [name] among their supertypes.
   const SupertypeSelector(this.name);
 
+  /// The simple supertype name to match.
   final String name;
 }
 
 /// Matches classes whose name ends with [suffix].
 final class NameEndsWithSelector extends ClassSelector {
+  /// Creates a selector matching classes whose name ends with [suffix].
   const NameEndsWithSelector(this.suffix);
 
+  /// The suffix a class name must end with.
   final String suffix;
 }
 
 /// Matches classes whose name starts with [prefix].
 final class NameStartsWithSelector extends ClassSelector {
+  /// Creates a selector matching classes whose name starts with [prefix].
   const NameStartsWithSelector(this.prefix);
 
+  /// The prefix a class name must start with.
   final String prefix;
 }
 
 /// Matches classes annotated with the annotation called [name].
 final class AnnotationSelector extends ClassSelector {
+  /// Creates a selector matching classes annotated with [name].
   const AnnotationSelector(this.name);
 
+  /// The simple annotation name to match.
   final String name;
 }
 
 /// The conventions for the classes an encapsulation selects.
 class Encapsulation {
+  /// Creates an encapsulation selecting classes by [files] or [selectors].
   const Encapsulation({
     this.files = const [],
     this.selectors = const [],
@@ -95,6 +104,7 @@ class Encapsulation {
   /// Overrides the config-wide severity for this encapsulation.
   final RuleSeverity? severity;
 
+  /// Whether [requirement] is enabled; unknown names are disabled.
   bool isEnabled(String requirement) => requirements[requirement] ?? false;
 
   /// The severity for [requirement]: the most specific setting wins.
@@ -104,12 +114,15 @@ class Encapsulation {
 
 /// A parsed encapsulation configuration.
 class EncapsulationConfig {
+  /// Creates a config of [encapsulations] at [version] with default
+  /// [severity].
   const EncapsulationConfig({
     required this.version,
     required this.severity,
     required this.encapsulations,
   });
 
+  /// The config format version, currently [encapsulationConfigVersion].
   final int version;
 
   /// Config-wide default severity for violations.
@@ -122,6 +135,7 @@ class EncapsulationConfig {
 
 /// The outcome of parsing a config document.
 class EncapsulationConfigParseResult {
+  /// Creates a result holding [config], or the validation [errors].
   const EncapsulationConfigParseResult({this.config, this.errors = const []});
 
   /// The parsed config, or `null` when [errors] is not empty.
@@ -130,6 +144,7 @@ class EncapsulationConfigParseResult {
   /// Human-readable validation errors.
   final List<String> errors;
 
+  /// Whether the document produced a config.
   bool get isValid => config != null;
 }
 

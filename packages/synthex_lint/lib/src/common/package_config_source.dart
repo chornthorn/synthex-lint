@@ -30,6 +30,7 @@ final List<String> _expectedDocumentKeys = synthexDocumentKeys.toList()..sort();
 
 /// A decoded rule configuration document and where it came from.
 class ConfigDocument {
+  /// Creates a document decoded from [source], or carrying an [error].
   const ConfigDocument({this.document, required this.source, this.error});
 
   /// The decoded document — a `Map` for a well-formed config — or `null` when
@@ -81,6 +82,7 @@ Object? sectionWithDefaultSeverity(Object? section, Object? documentSeverity) {
 /// cached per file path and invalidated by modification stamp, so edits are
 /// picked up without restarting the analysis server.
 class PackageConfigSource {
+  /// Creates a source that reads the rule section keyed by [ruleKey].
   PackageConfigSource({required this.ruleKey});
 
   /// The key of the rule's section inside the document — the rule's code.

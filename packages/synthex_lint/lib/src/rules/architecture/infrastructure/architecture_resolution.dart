@@ -14,6 +14,7 @@ import '../domain/architecture_schema.dart';
 /// injects a resolution without a file system and [ArchitectureProvider] is the
 /// production implementation.
 final class ArchitectureResolution extends RuleResolution {
+  /// Creates the resolution for a package that configures the rule.
   const ArchitectureResolution({
     this.schema,
     this.packageName,
@@ -22,7 +23,10 @@ final class ArchitectureResolution extends RuleResolution {
     super.errors,
   });
 
+  /// The parsed schema, or `null` when the document could not be parsed.
   final ArchitectureSchema? schema;
+
+  /// The analyzed package's name, or `null` when it cannot be determined.
   final String? packageName;
 }
 
@@ -32,6 +36,7 @@ final class ArchitectureResolution extends RuleResolution {
 /// (`synthex_lint.yaml`, `.yml`, or `.json`), or of the `synthex_lint` key of
 /// `pubspec.yaml`.
 class ArchitectureProvider implements RuleProvider<ArchitectureResolution> {
+  /// Creates the provider with [matcher], defaulting to a `GlobPathMatcher`.
   ArchitectureProvider({PathMatcher? matcher})
     : _matcher = matcher ?? GlobPathMatcher(),
       _config = PackageConfigSource(ruleKey: architectureRuleName);

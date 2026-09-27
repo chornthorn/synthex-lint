@@ -7,6 +7,7 @@ const int placementConfigVersion = 1;
 
 /// A class name suffix a placement requires.
 class RequiredSuffix {
+  /// Creates a required [suffix], optionally exempting private classes.
   const RequiredSuffix({required this.suffix, this.excludesPrivate = false});
 
   /// The suffix a class name must end with.
@@ -29,6 +30,7 @@ class RequiredSuffix {
 
 /// The conventions for the classes declared in the files a placement governs.
 class Placement {
+  /// Creates a placement whose files match [files].
   const Placement({
     required this.files,
     this.exempt = const [],
@@ -67,12 +69,14 @@ class Placement {
 
 /// A parsed placement configuration.
 class PlacementConfig {
+  /// Creates a config of [placements] at [version] with default [severity].
   const PlacementConfig({
     required this.version,
     required this.severity,
     required this.placements,
   });
 
+  /// The config format version, currently [placementConfigVersion].
   final int version;
 
   /// Config-wide default severity for violations.
@@ -85,6 +89,7 @@ class PlacementConfig {
 
 /// The outcome of parsing a config document.
 class PlacementConfigParseResult {
+  /// Creates a result holding [config], or the validation [errors].
   const PlacementConfigParseResult({this.config, this.errors = const []});
 
   /// The parsed config, or `null` when [errors] is not empty.
@@ -93,6 +98,7 @@ class PlacementConfigParseResult {
   /// Human-readable validation errors.
   final List<String> errors;
 
+  /// Whether the document produced a config.
   bool get isValid => config != null;
 }
 

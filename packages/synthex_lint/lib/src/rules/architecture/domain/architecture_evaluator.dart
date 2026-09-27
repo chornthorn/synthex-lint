@@ -5,6 +5,8 @@ import 'architecture_schema.dart';
 
 /// A single architecture violation found in a file.
 class ArchitectureViolation {
+  /// Creates a violation of [uri] with its diagnostic [message] and
+  /// [severity].
   const ArchitectureViolation({
     required this.uri,
     required this.message,
@@ -26,19 +28,25 @@ class ArchitectureViolation {
 
 /// An import (or export) directive of the analyzed file.
 class ImportFacts {
+  /// Creates facts about an import of [uri] classified as [target].
   const ImportFacts({required this.uri, required this.target});
 
+  /// The import URI as written in the directive.
   final String uri;
+
+  /// Where [uri] points, classified relative to the analyzed package.
   final ImportTarget target;
 }
 
 /// The facts about the analyzed file that architecture rules depend on.
 class FileFacts {
+  /// Creates the facts for the file at [path] with its [imports].
   const FileFacts({required this.path, required this.imports});
 
   /// Package-relative POSIX path, for example `lib/src/domain/entity.dart`.
   final String path;
 
+  /// The import and export directives of the file, in declaration order.
   final List<ImportFacts> imports;
 }
 
@@ -46,9 +54,13 @@ class FileFacts {
 ///
 /// Pure: no analyzer, no file system, no state.
 class ArchitectureEvaluator {
+  /// Creates an evaluator for [schema] that matches paths with [matcher].
   const ArchitectureEvaluator({required this.schema, required this.matcher});
 
+  /// The schema to evaluate against.
   final ArchitectureSchema schema;
+
+  /// The matcher that layer `files` patterns are matched with.
   final PathMatcher matcher;
 
   /// The first layer whose `files` patterns match [packageRelativePath], or

@@ -14,6 +14,7 @@ import '../domain/placement_config.dart';
 /// resolution without a file system and [PlacementProvider] is the production
 /// implementation.
 class PlacementResolution extends RuleResolution {
+  /// Creates the resolution for a package that configures the rule.
   const PlacementResolution({
     this.config,
     required super.matcher,
@@ -21,6 +22,7 @@ class PlacementResolution extends RuleResolution {
     super.errors,
   });
 
+  /// The parsed config, or `null` when the document could not be parsed.
   final PlacementConfig? config;
 }
 
@@ -30,6 +32,7 @@ class PlacementResolution extends RuleResolution {
 /// (`synthex_lint.yaml`, `.yml`, or `.json`), or of the `synthex_lint` key of
 /// `pubspec.yaml`.
 class PlacementProvider implements RuleProvider<PlacementResolution> {
+  /// Creates the provider with [matcher], defaulting to a `GlobPathMatcher`.
   PlacementProvider({PathMatcher? matcher})
     : _matcher = matcher ?? GlobPathMatcher(),
       _config = PackageConfigSource(ruleKey: placementRuleName);

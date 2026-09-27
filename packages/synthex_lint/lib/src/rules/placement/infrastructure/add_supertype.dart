@@ -19,6 +19,7 @@ class AddSupertype extends ResolvedCorrectionProducer {
     'Add the required supertype',
   );
 
+  /// Creates the correction for the context that reported the violation.
   AddSupertype({required super.context});
 
   @override

@@ -54,6 +54,7 @@ class ArchitectureRule extends MultiAnalysisRule {
 
   final RuleProvider<ArchitectureResolution> _provider;
 
+  /// Creates the rule with [provider], defaulting to `ArchitectureProvider`.
   ArchitectureRule({RuleProvider<ArchitectureResolution>? provider})
     : _provider = provider ?? ArchitectureProvider(),
       super(

@@ -58,6 +58,7 @@ class PlacementRule extends MultiAnalysisRule {
 
   final RuleProvider<PlacementResolution> _provider;
 
+  /// Creates the rule with [provider], defaulting to `PlacementProvider`.
   PlacementRule({RuleProvider<PlacementResolution>? provider})
     : _provider = provider ?? PlacementProvider(),
       super(
