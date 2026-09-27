@@ -853,6 +853,13 @@ dart analyze
 | `test/rules/placement/domain/required_supertype_test.dart` | The message shapes the correction parses.                                                                                                     |
 | `test/support/correction_testing.dart`                     | Shared helper that applies a correction's edits and returns the corrected source.                                                             |
 
+### CI
+
+`.github/workflows/ci.yml` runs on every push to `main` and on pull requests:
+`dart pub get`, a formatting check
+(`dart format --output=none --set-exit-if-changed .`), `dart analyze`, and
+`dart test`, all in `packages/synthex_lint`.
+
 ### Adding a rule in 3 steps
 
 1. Copy `lib/src/rules/placement/` — the smallest config-driven rule — and
@@ -916,7 +923,34 @@ The published package is `packages/synthex_lint`.
 4. `dart doc --dry-run` — no warnings or errors.
 5. `dart pub publish --dry-run` — only the two expected hints (see
    [dev-loop notes](#dev-loop-notes)).
-6. `dart pub publish`.
+6. Publish: the first version manually with `dart pub publish`; later versions
+   by pushing a version tag, once automated publishing is configured (below).
+
+### Releasing with GitHub Actions
+
+`.github/workflows/publish.yml` runs when a `vX.Y.Z` tag is pushed: it analyzes
+and tests the package, then publishes `packages/synthex_lint` with the official
+reusable workflow, `dart-lang/setup-dart/.github/workflows/publish.yml@v1`,
+which authenticates with a short-lived OIDC token instead of a stored secret.
+
+One-time setup, after the package's first manual publish:
+
+1. On pub.dev, open the package's **Admin** tab → **Automated publishing** →
+   **Enable publishing from GitHub Actions**.
+2. Enter the repository (`<owner>/<repository>`) and the tag pattern
+   `v{{version}}` — it must match the pattern in `.github/workflows/publish.yml`.
+
+Releasing a version is then:
+
+```sh
+# version and CHANGELOG are already committed on main
+git tag v0.2.0
+git push origin v0.2.0
+```
+
+Anyone who can push a matching tag can publish, so consider hardening the setup
+on pub.dev by requiring a GitHub Actions environment (`pub.dev`) and adding it
+to the publish job's `with:` block, with protection rules on the GitHub side.
 
 ### What pub.dev shows
 

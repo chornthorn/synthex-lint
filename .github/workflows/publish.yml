@@ -1,0 +1,46 @@
+name: Publish to pub.dev
+
+on:
+  push:
+    tags:
+      # Must match the tag pattern configured for the package on pub.dev
+      # (Admin tab, Automated publishing): 'v{{version}}'.
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/synthex_lint
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+      - run: dart pub get
+      - run: dart analyze
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/synthex_lint
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+      - run: dart pub get
+      - run: dart test
+
+  publish:
+    name: Publish packages/synthex_lint
+    needs: [analyze, test]
+    permissions:
+      id-token: write # Required for authentication using OIDC.
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
+    with:
+      working-directory: packages/synthex_lint
