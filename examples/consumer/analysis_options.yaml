@@ -1,0 +1,7 @@
+plugins:
+  synthex_lint:
+    path: ../../packages/synthex_lint
+    diagnostics:
+      architecture: true
+      encapsulation: true
+      placement: true

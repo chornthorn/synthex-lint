@@ -1,0 +1,5 @@
+# Dart tooling artifacts
+.dart_tool/
+
+# Demo package, not a published library: the lock file stays local.
+pubspec.lock

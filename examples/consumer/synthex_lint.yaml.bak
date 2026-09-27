@@ -1,0 +1,52 @@
+# One document for every rule. The plugin reads this file, or the
+# `synthex_lint` key of pubspec.yaml, and each rule reads its own section.
+version: 1
+severity: warning # default for rules that do not set their own
+
+architecture:
+  version: 1
+  severity: warning
+  layers:
+    - name: domain
+      files: ["lib/domain/**"]
+      severity: error
+      forbiddenImports:
+        - dart:io
+        - uri: package:flutter/**
+          severity: info
+    - name: data
+      files: ["lib/data/**"]
+      severity: warning
+      mayImport: ["domain"]
+    - name: presentation
+      files: ["lib/presentation/**"]
+      severity: error
+      mayImport: ["domain", "data"]
+
+placement:
+  version: 1
+  placements:
+    - files: ["lib/presentation/pages/*"]
+      classesMustEndWith: [Page]
+      severity: error
+    - files: ["lib/presentation/view_models/*"]
+      classesMustEndWith: [ViewModel]
+      severity: error
+    - files: ["lib/presentation/widgets/*"]
+      classesMustEndWith: [Widget]
+      severity: error
+    - files: ["lib/data/**"]
+      classesMustEndWith: Repository
+      mustHaveSupertype: Repository
+
+encapsulation:
+  version: 1
+  severity: error
+  encapsulations:
+    - files: ["lib/presentation/view_models/*"]
+      severity: error
+      requirements:
+        fieldsPrivate: true
+        privateFieldsFinal: false
+        noPublicSetters: true
+        requirePublicGetters: true

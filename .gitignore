@@ -1,0 +1,9 @@
+# Dart tooling artifacts
+.dart_tool/
+.packages
+build/
+
+# Editors and OS
+.idea/
+*.iml
+.DS_Store
